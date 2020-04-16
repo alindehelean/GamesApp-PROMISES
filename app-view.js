@@ -54,12 +54,17 @@ function createDomElement(gameObj){
     document.getElementById(`${gameObj._id}`).addEventListener("click", function(event){
         console.log(event.target);
         if(event.target.classList.contains('delete-btn')){
-            deleteGame(gameELement.getAttribute("id"), function(apiResponse){
-            //console.log(event.target);
-            //console.log(apiResponse);
-            removeDeletedElementFromDOM(event.target.parentElement);
+            // deleteGame(gameELement.getAttribute("id"), function(apiResponse){
+            // //console.log(event.target);
+            // //console.log(apiResponse);
+            // removeDeletedElementFromDOM(event.target.parentElement);
+            // })
+
+            deleteGame(gameELement.getAttribute("id")).then(apiResponse => {
+                console.log(apiResponse);
+                removeDeletedElementFromDOM(event.target.parentElement);
             })
-  
+
 
         } else if(event.target.classList.contains('update-btn')){
             gameELement.appendChild(updateGameElement);
@@ -86,8 +91,9 @@ function createDomElement(gameObj){
         urlEncoded.append("description", updatedGameDescription);
         urlEncoded.append("imageUrl", updatedGameImage);
          
-            updateGameRequest(gameELement.getAttribute("id"), urlEncoded,editedDom);  
+            // updateGameRequest(gameELement.getAttribute("id"), urlEncoded,editedDom);  
 
+            updateGameRequest(gameELement.getAttribute("id"),urlEncoded).then(editedDom);
 
             removeDeletedElementFromDOM(updateGameElement); 
 
@@ -125,7 +131,7 @@ function buildErrorMessage(inputEl, errosMsg){
     const errorMsgElement = document.createElement("span");
     errorMsgElement.setAttribute("rel", inputEl.id);
     errorMsgElement.classList.add("errorMsg");
-    errorMsgElement.innerHTML = errosMsg;c
+    errorMsgElement.innerHTML = errosMsg;
     inputEl.after(errorMsgElement);
 }
 
@@ -156,7 +162,8 @@ document.querySelector(".submitBtn").addEventListener("click", function(event){
         urlencoded.append("imageUrl", gameImageUrl.value);
         urlencoded.append("description", gameDescription.value);
 
-        createGameRequest(urlencoded, createDomElement);
+        // createGameRequest(urlencoded, createDomElement);
 
+        createGameRequest(urlencoded).then(createDomElement);
     }
 })
