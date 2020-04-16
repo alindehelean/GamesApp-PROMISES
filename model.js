@@ -1,18 +1,29 @@
 var apiURL = "https://games-world.herokuapp.com";
 
-function getGamesList(callbackFunction){
-    fetch(apiURL + "/games", {
+// function getGamesList(callbackFunction){
+//     fetch(apiURL + "/games", {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/x-www-form-urlencoded"
+//         } 
+//     }).then(function(response){
+//         return response.json();
+//     }).then(function(arrayOfGames){
+//         console.log(arrayOfGames);
+//         callbackFunction(arrayOfGames);
+//     });
+// }
+
+function getGamesList(){
+    return fetch(apiURL + "/games", {
         method: "GET",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         } 
-    }).then(function(response){
-        return response.json();
-    }).then(function(arrayOfGames){
-        console.log(arrayOfGames);
-        callbackFunction(arrayOfGames);
-    });
+    })
+    .then(response => response.json());
 }
+
 
 function deleteGame(gameID, callbackFunction) {
     console.log(gameID);

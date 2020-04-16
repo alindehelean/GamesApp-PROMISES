@@ -1,5 +1,11 @@
 
-getGamesList(function(arrayOfGames){
+// getGamesList(function(arrayOfGames){
+//     for(var i = 0; i < arrayOfGames.length; i++) {
+//         createDomElement(arrayOfGames[i]);
+//     }
+// });
+
+getGamesList().then(arrayOfGames =>{
     for(var i = 0; i < arrayOfGames.length; i++) {
         createDomElement(arrayOfGames[i]);
     }
